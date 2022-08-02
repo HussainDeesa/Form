@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import '../App.css';
 
 export default function Home(props) {
@@ -7,6 +7,11 @@ export default function Home(props) {
     const [user, setUser] = useState('')
     let navigate = useNavigate()
     props.setprogress(0)
+    useEffect(() => {
+        if (!localStorage.getItem('token')){
+         navigate("/login")   
+        }
+    },[])
     const getuser = async () => {
 
         const response = await fetch(`api/auth/getuser`, {
